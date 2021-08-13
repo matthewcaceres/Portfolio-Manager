@@ -11,6 +11,9 @@ public class Transaction {
     @Column(name="id")
     private int id;
 
+    @Column (name="cash_id")
+    private int cashId;
+
     @Column(name="value")
     private double value;
 

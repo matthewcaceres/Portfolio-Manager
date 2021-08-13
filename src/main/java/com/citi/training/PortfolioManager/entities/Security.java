@@ -15,6 +15,9 @@ public class Security {
     @Column(name="id")
     private int id;
 
+    @Column(name="invest_id")
+    private int investId;
+
     @Column(name="symbol")
     private String symbol;
 

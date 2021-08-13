@@ -13,7 +13,10 @@ public class InvestmentAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name="user_id", referencedColumnName="id")
+    @Column(name="user_id")
+    private int userId;
+
+    @JoinColumn(name="invest_id", referencedColumnName="id")
     @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
     List<Security> securities = new ArrayList<>();
 
