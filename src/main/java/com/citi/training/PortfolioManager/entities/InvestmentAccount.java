@@ -1,2 +1,35 @@
-package com.citi.training.PortfolioManager.entities;public class InvestmentAccount {
+package com.citi.training.PortfolioManager.entities;
+
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="invest_account")
+public class InvestmentAccount {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @JoinColumn(name="user_id", referencedColumnName="id")
+    @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    List<Security> securities = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Security> getSecurities() {
+        return securities;
+    }
+
+    public void setSecurities(List<Security> securities) {
+        this.securities = securities;
+    }
 }

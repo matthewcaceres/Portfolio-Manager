@@ -1,2 +1,32 @@
-package com.citi.training.PortfolioManager.entities;public class Transaction {
+package com.citi.training.PortfolioManager.entities;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="transactions")
+public class Transaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name="id")
+    private int id;
+
+    @Column(name="value")
+    private double value;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 }
