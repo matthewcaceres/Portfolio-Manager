@@ -2,6 +2,8 @@ package com.citi.training.PortfolioManager.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name="transactions")
@@ -16,6 +18,9 @@ public class Transaction implements Serializable {
 
     @Column(name="value")
     private double value;
+
+    @Column(name="date")
+    private LocalDate date;
 
     public int getId() {
         return id;
@@ -39,5 +44,13 @@ public class Transaction implements Serializable {
 
     public void setCashId(int cashId) {
         this.cashId = cashId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

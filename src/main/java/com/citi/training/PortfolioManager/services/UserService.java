@@ -5,13 +5,21 @@ import com.citi.training.PortfolioManager.entities.InvestmentAccount;
 import com.citi.training.PortfolioManager.entities.Security;
 import com.citi.training.PortfolioManager.entities.User;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {
     User getUserById(int id);
-    int getNetWorth(int id);
+    double getNetWorth(int id) throws IOException;
+    double getNetWorthSince(int id, String beforeDate) throws ParseException, IOException;
 
     List<CashAccount> getCashAccounts(int id);
 
     List<InvestmentAccount> getInvestmentAccounts(int id);
+
+//    User addCashAccount(CashAccount ca, int id);
+//    boolean addInvestMentAccount(InvestmentAccount inv, int id);
+    User addUser(User user);
 }

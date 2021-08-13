@@ -1,14 +1,17 @@
 package com.citi.training.PortfolioManager.services;
 
-import com.citi.training.PortfolioManager.entities.CashAccount;
-import com.citi.training.PortfolioManager.entities.InvestmentAccount;
-import com.citi.training.PortfolioManager.entities.Security;
-import com.citi.training.PortfolioManager.entities.User;
+import com.citi.training.PortfolioManager.entities.*;
+import com.citi.training.PortfolioManager.repos.CashAccountRepository;
 import com.citi.training.PortfolioManager.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -17,20 +20,43 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository repository;
 
+
     public User getUserById(int id){
         User user = repository.findById(id).get();
         return user;
     }
-    public int getNetWorth(int id){
+    public double getNetWorth(int id) throws IOException {
         User user = repository.findById(id).get();
-        int worth = 0;
+        double worth = 0;
         for(CashAccount ca : user.getCashAccountList()){
             worth+=ca.getTotal();
         }
         for(InvestmentAccount ia: user.getInvestmentAccountList()){
             for(Security security: ia.getSecurities()){
-                //get 5 placeholder... get value from api
-                worth+=security.getQuantity() * 5;
+                Stock stock = YahooFinance.get(security.getSymbol());
+                worth+=security.getQuantity() * stock.getQuote().getPrice().doubleValue();
+            }
+        }
+
+        return worth;
+    }
+
+    public double getNetWorthSince(int id, String date) throws ParseException, IOException {
+
+        LocalDate beforeDate= LocalDate.parse(date);
+        User user = repository.findById(id).get();
+        double worth = 0;
+        for(CashAccount ca : user.getCashAccountList()){
+            for(Transaction t: ca.getTransactionList()){
+                if(t.getDate().isBefore(beforeDate)){
+                    worth+=t.getValue();
+                }
+            }
+        }
+        for(InvestmentAccount ia: user.getInvestmentAccountList()){
+            for(Security security: ia.getSecurities()){
+                Stock stock = YahooFinance.get(security.getSymbol());
+                worth+=security.getQuantity() * stock.getQuote().getPrice().doubleValue();
             }
         }
 
@@ -49,6 +75,23 @@ public class UserServiceImpl implements UserService{
 
 
 
+    public User addUser(User user){
+        return repository.save(user);
+    }
+
+//    @Override
+//    public boolean addInvestMentAccount(InvestmentAccount inv, int id) {
+//        User user = repository.findById(id).get();
+//        return user.getInvestmentAccountList().add(inv);
+//    }
+
+//    @Override
+//    public User addCashAccount(CashAccount ca, int id) {
+//        User user = repository.findById(id).get();
+//        ca.setUser(user.getId());
+//        user.getCashAccountList().add(ca);
+//        return repository.save(user);
+//    }
 
 
 }
