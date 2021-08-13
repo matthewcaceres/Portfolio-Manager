@@ -1,13 +1,13 @@
 package com.citi.training.PortfolioManager.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="transactions")
-public class Transaction {
+public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name="id")
     private int id;
 

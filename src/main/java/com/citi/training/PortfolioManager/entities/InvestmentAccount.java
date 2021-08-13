@@ -2,15 +2,17 @@ package com.citi.training.PortfolioManager.entities;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="invest_account")
-public class InvestmentAccount {
+public class InvestmentAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
     @Column(name="user_id")

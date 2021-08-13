@@ -2,17 +2,16 @@ package com.citi.training.PortfolioManager.entities;
 
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
-import javax.transaction.Transaction;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.citi.training.PortfolioManager.entities.Transaction;
 
 @Entity
 @Table(name="cash_account")
 public class CashAccount implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-
     @Column(name="id")
     private int id;
 
