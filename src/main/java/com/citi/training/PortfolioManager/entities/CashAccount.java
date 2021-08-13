@@ -13,7 +13,7 @@ public class CashAccount implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
+    private Integer id;
 
     @Column(name="user_id")
     private int userId;
@@ -24,6 +24,9 @@ public class CashAccount implements Serializable {
 
     @Column(name="total")
     private int total;
+
+    @Column(name="name")
+    private String name;
 
     public int getId() {
         return id;
@@ -57,5 +60,11 @@ public class CashAccount implements Serializable {
         this.total = total;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

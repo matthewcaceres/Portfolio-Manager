@@ -22,6 +22,9 @@ public class InvestmentAccount implements Serializable {
     @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
     List<Security> securities = new ArrayList<>();
 
+    @Column(name="name")
+    private String name;
+
     public int getId() {
         return id;
     }
@@ -44,5 +47,13 @@ public class InvestmentAccount implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
