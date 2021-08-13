@@ -46,5 +46,4 @@ public class CashAccountServiceImpl implements CashAccountService{
         return ca.getTransactionList();
     }
 
-
 }
