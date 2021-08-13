@@ -4,14 +4,14 @@ package com.citi.training.PortfolioManager.entities;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="security")
-public class Security {
+public class Security implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name="id")
     private int id;
 
