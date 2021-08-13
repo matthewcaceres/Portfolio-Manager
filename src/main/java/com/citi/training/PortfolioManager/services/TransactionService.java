@@ -6,4 +6,10 @@ public interface TransactionService {
 
     Transaction getTransactionById (int id);
 
+    Transaction addTransaction (Transaction transaction);
+
+    Transaction updateTransaction (Transaction transaction);
+
+    void deleteTransaction (Transaction transaction);
+
 }

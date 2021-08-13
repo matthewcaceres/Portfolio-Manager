@@ -13,15 +13,25 @@ public class CashAccountController {
     @Autowired
     private CashAccountService service;
 
-    @RequestMapping(method = RequestMethod.GET, value="/{id}")
-    public CashAccount getCashAccountById (@PathVariable("id") int id) {
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public CashAccount getCashAccountById(@PathVariable("id") int id) {
         CashAccount cashAccount = service.getCashAccountById(id);
         return cashAccount;
     }
 
-    @RequestMapping(method=RequestMethod.POST)
-    public void addNewCashAccount (@RequestBody CashAccount cashAccount) {
+    @RequestMapping(method = RequestMethod.POST)
+    public void addNewCashAccount(@RequestBody CashAccount cashAccount) {
+
         service.addCashAccount(cashAccount);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteCashAccount(@RequestBody CashAccount ca) {
+        service.deleteCashAccount(ca);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateCashAccount(@RequestBody CashAccount ca) {
+        service.updateCashAccount(ca);
+    }
 }
