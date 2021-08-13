@@ -58,4 +58,12 @@ public class Security {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public int getInvestId() {
+        return investId;
+    }
+
+    public void setInvestId(int investId) {
+        this.investId = investId;
+    }
 }

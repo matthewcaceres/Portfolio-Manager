@@ -32,4 +32,12 @@ public class Transaction {
     public void setValue(double value) {
         this.value = value;
     }
+
+    public int getCashId() {
+        return cashId;
+    }
+
+    public void setCashId(int cashId) {
+        this.cashId = cashId;
+    }
 }

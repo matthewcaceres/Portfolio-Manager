@@ -35,4 +35,12 @@ public class InvestmentAccount {
     public void setSecurities(List<Security> securities) {
         this.securities = securities;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
