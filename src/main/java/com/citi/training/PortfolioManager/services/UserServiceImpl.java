@@ -68,6 +68,11 @@ public class UserServiceImpl implements UserService{
         return user.getCashAccountList();
     }
 
+    @Override
+    public List<User> getAll() {
+        return repository.findAll();
+    }
+
     public List<InvestmentAccount> getInvestmentAccounts(int id){
         User user = repository.findById(id).get();
         return user.getInvestmentAccountList();
@@ -79,19 +84,25 @@ public class UserServiceImpl implements UserService{
         return repository.save(user);
     }
 
-//    @Override
-//    public boolean addInvestMentAccount(InvestmentAccount inv, int id) {
-//        User user = repository.findById(id).get();
-//        return user.getInvestmentAccountList().add(inv);
-//    }
 
-//    @Override
-//    public User addCashAccount(CashAccount ca, int id) {
-//        User user = repository.findById(id).get();
-//        ca.setUser(user.getId());
-//        user.getCashAccountList().add(ca);
-//        return repository.save(user);
-//    }
+
+    @Override
+    public User addInvestMentAccount(InvestmentAccount inv, int id) {
+        User user = repository.findById(id).get();
+        user.getInvestmentAccountList().add(inv);
+        return repository.save(user);
+    }
+
+    @Override
+    public User addCashAccount(CashAccount ca, int id) {
+        User user = repository.findById(id).get();
+        user.getCashAccountList().add(ca);
+        return repository.save(user);
+    }
+
+    public User getByName(String name){
+        return repository.findByName(name);
+    }
 
 
 }

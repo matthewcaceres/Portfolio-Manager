@@ -25,6 +25,13 @@ public class UserController {
         return user;
 
     }
+
+    @GetMapping(value="")
+    public User getUser(@RequestParam String name){
+        User user =  service.getByName(name);
+        return user;
+
+    }
     @GetMapping(value="/{id}/networth")
     public Double getNetworth(@PathVariable("id") int id,@RequestParam(required = false) String date){
         if(date==null) {
@@ -62,20 +69,25 @@ public class UserController {
 
     }
 
-//    @PostMapping(value="/{id}/invest", consumes="application/json")
-//    public ResponseEntity<InvestmentAccount> addInvestmentAccounts(@PathVariable("id") int id, InvestmentAccount inv){
-//        InvestmentAccount inv = service.addInvestMentAccount(inv);
-//        return service.getInvestmentAccounts(id);
-//
-//    }
+    @GetMapping(value="/all")
+    public List<User> getUsers(){
+        return service.getAll();
 
-//    @PostMapping(value="/{id}/cash", consumes="application/json")
-//    public ResponseEntity<User> addCashAccounts(@PathVariable("id") int id, @RequestBody CashAccount ca){
-//        System.out.println(ca.getName() + " " + ca.getTotal());
-//        User u = service.addCashAccount(ca,id);
-//        return new ResponseEntity<>(u, HttpStatus.CREATED);
-//
-//    }
+    }
+
+    @PostMapping(value="/{id}/invest", consumes="application/json")
+    public ResponseEntity<User> addInvestmentAccounts(@PathVariable("id") int id, InvestmentAccount inv){
+        User u = service.addInvestMentAccount(inv, id);
+        return new ResponseEntity<>(u, HttpStatus.CREATED);
+
+    }
+
+    @PostMapping(value="/{id}/cash", consumes="application/json")
+    public ResponseEntity<User> addCashAccounts(@PathVariable("id") int id, @RequestBody CashAccount ca){
+        User u = service.addCashAccount(ca,id);
+        return new ResponseEntity<>(u, HttpStatus.CREATED);
+
+    }
 
     @PostMapping(value="", consumes="application/json")
     public ResponseEntity<User> addUser(@RequestBody User user){
