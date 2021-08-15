@@ -13,7 +13,7 @@ public class CashAccount implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer id;
+    private int id;
 
     @Column(name="user_id")
     private int userId;

@@ -17,9 +17,12 @@ public interface UserService {
 
     List<CashAccount> getCashAccounts(int id);
 
+    List<User> getAll();
+
     List<InvestmentAccount> getInvestmentAccounts(int id);
 
-//    User addCashAccount(CashAccount ca, int id);
-//    boolean addInvestMentAccount(InvestmentAccount inv, int id);
+    User addCashAccount(CashAccount ca, int id);
+    User addInvestMentAccount(InvestmentAccount inv, int id);
     User addUser(User user);
+    User getByName(String name);
 }
