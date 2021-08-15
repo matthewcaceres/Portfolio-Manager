@@ -16,6 +16,6 @@ public class UserRestTest {
         List<User> users = template.getForObject("http://localhost:8080/account/all", List.class);
         assertThat(users.size(),  equalTo(2));
     }
-/
+
 
 }
