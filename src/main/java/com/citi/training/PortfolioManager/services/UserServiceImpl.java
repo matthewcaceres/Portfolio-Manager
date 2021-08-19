@@ -1,7 +1,6 @@
 package com.citi.training.PortfolioManager.services;
 
 import com.citi.training.PortfolioManager.entities.*;
-import com.citi.training.PortfolioManager.repos.CashAccountRepository;
 import com.citi.training.PortfolioManager.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
