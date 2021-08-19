@@ -5,6 +5,8 @@ import com.citi.training.PortfolioManager.repos.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class TransactionServiceImpl implements TransactionService{
 
@@ -19,16 +21,18 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public Transaction addTransaction(Transaction transaction) {
-        return null;
+        return repository.save(transaction);
     }
 
     @Override
     public Transaction updateTransaction(Transaction transaction) {
-        return null;
+        Transaction transactionToBeUpdated = repository.findById(transaction.getId()).orElse(null);
+        transactionToBeUpdated.setValue(transaction.getValue());
+        return repository.save(transactionToBeUpdated);
     }
 
     @Override
     public void deleteTransaction(Transaction transaction) {
-
+        repository.delete(transaction);
     }
 }
