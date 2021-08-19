@@ -96,5 +96,19 @@ public class UserController {
 
     }
 
+    @PutMapping(value="/{id}", consumes="application/json")
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user){
+        return new ResponseEntity<>(service.updateUser(id,user),HttpStatus.OK);
+
+    }
+
+    @DeleteMapping(value="/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id")int id){
+         if(service.deleteUser(id))
+             return new ResponseEntity(HttpStatus.OK);
+         return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+    }
+
 
 }
