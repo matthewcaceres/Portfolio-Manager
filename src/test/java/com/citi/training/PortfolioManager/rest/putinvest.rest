@@ -1,0 +1,15 @@
+PUT http://portfoliomanager-portfoliomanager.namdevops12.conygre.com/invest/update
+Content-type: application/json
+
+{
+  "id": 1,
+  "securities": [
+    {
+      "id": 1,
+      "invest_id": 1,
+      "symbol": "AAPL",
+      "type": "Stock",
+      "quantity": 3
+    }
+  ]
+}
