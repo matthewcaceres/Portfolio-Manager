@@ -1,0 +1,9 @@
+DELETE http://localhost:8080/security/delete
+Content-type: application/json
+
+{
+  "investId": 1,
+  "symbol": "AAPL",
+  "type": "Stock",
+  "quantity": 3
+}

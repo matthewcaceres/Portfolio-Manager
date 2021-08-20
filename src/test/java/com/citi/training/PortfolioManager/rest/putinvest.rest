@@ -1,12 +1,12 @@
-PUT http://portfoliomanager-portfoliomanager.namdevops12.conygre.com/invest/update
+PUT http://localhost:8080/invest/update
 Content-type: application/json
 
 {
-  "id": 1,
+  "id": 2,
   "securities": [
     {
-      "id": 1,
-      "invest_id": 1,
+      "id": 2,
+      "invest_id": 2,
       "symbol": "AAPL",
       "type": "Stock",
       "quantity": 3

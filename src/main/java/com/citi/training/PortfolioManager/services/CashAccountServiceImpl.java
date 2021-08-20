@@ -37,8 +37,12 @@ public class CashAccountServiceImpl implements CashAccountService{
 
     @Override
     public CashAccount updateCashAccount(CashAccount ca) {
-        return repository.save(ca);
+        CashAccount existingAccount = repository.getById(ca.getId());
+        existingAccount.setTransactionList(ca.getTransactionList());
+        return existingAccount;
     }
+
+
 
     @Override
     public List<Transaction> getTransactionList(int id) {

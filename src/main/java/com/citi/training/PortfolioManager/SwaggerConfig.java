@@ -28,5 +28,6 @@ public class SwaggerConfig {
                 .title("Portfolio Manager REST API with Swagger")
                 .description("This API allows you to interact with the portfolio managaer. It is a CRUD API")
                 .build();
+
     }
 }

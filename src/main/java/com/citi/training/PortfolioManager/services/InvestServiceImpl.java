@@ -41,10 +41,6 @@ public class InvestServiceImpl implements InvestService{
         return repository.save(existingAccount);
     }
 
-    public List<Security> getAllSecurities(int id){
-        InvestmentAccount investmentAccount = repository.findById(id).get();
-        return investmentAccount.getSecurities();
-    }
 
 
 

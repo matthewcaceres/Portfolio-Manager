@@ -17,6 +17,6 @@ public interface InvestService {
 
     InvestmentAccount updateInvestAccount(InvestmentAccount account);
 
-    List<Security> getAllSecurities(int id);
+
 
 }
