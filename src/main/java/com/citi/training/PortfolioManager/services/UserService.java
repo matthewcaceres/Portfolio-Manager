@@ -25,4 +25,6 @@ public interface UserService {
     User addInvestMentAccount(InvestmentAccount inv, int id);
     User addUser(User user);
     User getByName(String name);
+    User updateUser(int id,User user);
+    boolean deleteUser(int id);
 }
