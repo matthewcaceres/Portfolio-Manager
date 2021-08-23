@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -53,6 +54,18 @@ public class UserController {
             }
             return worth;
         }
+
+    }
+
+    @GetMapping(value="/{id}/movers")
+    public HashMap getNetworth(@PathVariable("id") int id){
+        HashMap<String,Double> map = null;
+        try {
+            map = service.getMoversLosers(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
 
     }
 

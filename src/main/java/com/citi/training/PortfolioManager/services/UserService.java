@@ -8,6 +8,7 @@ import com.citi.training.PortfolioManager.entities.User;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
@@ -27,4 +28,5 @@ public interface UserService {
     User getByName(String name);
     User updateUser(int id,User user);
     boolean deleteUser(int id);
+    HashMap<String,Double> getMoversLosers(int id) throws IOException;
 }

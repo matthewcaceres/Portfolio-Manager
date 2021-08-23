@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -33,11 +33,57 @@ public class UserServiceImpl implements UserService{
         for(InvestmentAccount ia: user.getInvestmentAccountList()){
             for(Security security: ia.getSecurities()){
                 Stock stock = YahooFinance.get(security.getSymbol());
+
                 worth+=security.getQuantity() * stock.getQuote().getPrice().doubleValue();
             }
         }
 
         return worth;
+    }
+
+    public HashMap<String,Double> getMoversLosers(int id) throws IOException {
+        User user = repository.findById(id).get();
+        HashMap<String,Double> stocks = new HashMap<>();
+        for(InvestmentAccount ia: user.getInvestmentAccountList()){
+            for(Security security: ia.getSecurities()){
+                stocks.put(security.getSymbol(),YahooFinance.get(security.getSymbol()).getQuote().getChangeInPercent().doubleValue());
+            }
+        }
+
+        return sortMap(stocks);
+    }
+
+    public static HashMap<String, Double> sortMap(HashMap<String, Double> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Double> > list =
+                new LinkedList<Map.Entry<String, Double> >(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, (o1, o2) -> (o1.getValue()).compareTo(o2.getValue()));
+
+        // put data from sorted list to hashmap
+        HashMap<String, Double> temp = new LinkedHashMap<String, Double>();
+        int posvalues =0;
+        int negvalues =0;
+        for (int i=0;i<list.size();i++) {
+            if(list.get(i).getValue()<0 && negvalues!=5){
+                negvalues+=1;
+                temp.put(list.get(i).getKey(), list.get(i).getValue());
+            }
+            else
+                break;
+
+        }
+        for (int i=list.size()-1;i>=0;i--) {
+            if(list.get(i).getValue()>0 && posvalues!=5){
+                posvalues+=1;
+                temp.put(list.get(i).getKey(), list.get(i).getValue());
+            }
+            else
+                break;
+        }
+        return temp;
     }
 
     public double getNetWorthSince(int id, String date) throws ParseException, IOException {
