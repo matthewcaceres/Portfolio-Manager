@@ -52,6 +52,16 @@ public class UserServiceImpl implements UserService{
 
         return sortMap(stocks);
     }
+    public HashMap<String,Double> getIndices() throws IOException {
+        HashMap<String,Double> stocks = new HashMap<>();
+        stocks.put("DOW",YahooFinance.get("^DJI").getQuote().getChangeInPercent().doubleValue());
+        stocks.put("S&P",YahooFinance.get("^GSPC").getQuote().getChangeInPercent().doubleValue());
+        stocks.put("NAS",YahooFinance.get("^IXIC").getQuote().getChangeInPercent().doubleValue());
+        stocks.put("TBOND",YahooFinance.get("^TNX").getQuote().getChangeInPercent().doubleValue());
+
+        return stocks;
+
+    }
 
     public static HashMap<String, Double> sortMap(HashMap<String, Double> hm)
     {

@@ -58,10 +58,22 @@ public class UserController {
     }
 
     @GetMapping(value="/{id}/movers")
-    public HashMap getNetworth(@PathVariable("id") int id){
+    public HashMap getMovers(@PathVariable("id") int id){
         HashMap<String,Double> map = null;
         try {
             map = service.getMoversLosers(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+
+    }
+
+    @GetMapping(value="/indices")
+    public HashMap getIndices(){
+        HashMap<String,Double> map = null;
+        try {
+            map = service.getIndices();
         } catch (IOException e) {
             e.printStackTrace();
         }
