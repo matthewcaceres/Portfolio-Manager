@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cash_account")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class CashAccountController {
 
     @Autowired

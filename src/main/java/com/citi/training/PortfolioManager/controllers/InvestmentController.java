@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/invest")
+@CrossOrigin(origins = "*")
 public class InvestmentController {
     @Autowired
     private InvestService service;
