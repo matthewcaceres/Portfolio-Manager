@@ -69,14 +69,31 @@ public class UserController {
 
     }
 
-    @GetMapping(value="/indices")
-    public HashMap getIndices(){
+    @GetMapping(value="/indices" )
+    public HashMap getIndices(@RequestParam(required = false) String time){
         HashMap<String,Double> map = null;
         try {
-            map = service.getIndices();
+        switch (time){
+            case "YTD":
+                map = service.getIndicesYTD();
+                break;
+            case "3month":
+                map = service.getIndicesMonth3();
+                break;
+            case "month":
+                map = service.getIndicesMonth();
+                break;
+            case "week":
+                map = service.getIndicesWeek();
+                break;
+            default:
+                map = service.getIndicesToday();
+                break;
+        }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return map;
 
     }

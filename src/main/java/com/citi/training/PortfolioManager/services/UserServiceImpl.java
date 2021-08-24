@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
+import yahoofinance.histquotes.HistoricalQuote;
+import yahoofinance.histquotes.Interval;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -52,16 +54,99 @@ public class UserServiceImpl implements UserService{
 
         return sortMap(stocks);
     }
-    public HashMap<String,Double> getIndices() throws IOException {
+    public HashMap<String,Double> getIndicesToday() throws IOException {
         HashMap<String,Double> stocks = new HashMap<>();
-        stocks.put("DOW",YahooFinance.get("^DJI").getQuote().getChangeInPercent().doubleValue());
-        stocks.put("S&P",YahooFinance.get("^GSPC").getQuote().getChangeInPercent().doubleValue());
-        stocks.put("NAS",YahooFinance.get("^IXIC").getQuote().getChangeInPercent().doubleValue());
-        stocks.put("TBOND",YahooFinance.get("^TNX").getQuote().getChangeInPercent().doubleValue());
+        String[] tickers = {"^DJI","^GSPC","^IXIC","^TNX"};
+        for(String ticker: tickers){
+            stocks.put(ticker,YahooFinance.get(ticker).getQuote().getChangeInPercent().doubleValue());
+        }
+
 
         return stocks;
 
     }
+
+    public HashMap<String,Double> getIndicesYTD() throws IOException {
+        HashMap<String,Double> stocks = new HashMap<>();
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(2021,0,4);
+        String[] tickers = {"^DJI","^GSPC","^IXIC","^TNX"};
+        Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
+        for(String ticker: tickers){
+            List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
+            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            stocks.put(ticker,change);
+        }
+
+
+        return stocks;
+
+    }
+
+    public HashMap<String,Double> getIndicesWeek() throws IOException {
+        HashMap<String,Double> stocks = new HashMap<>();
+
+        Calendar calendar = new GregorianCalendar();
+        LocalDate date = LocalDate.now().minusDays(7);
+
+
+        calendar.set(2021,date.getMonthValue()-1,date.getDayOfMonth()-1);
+        String[] tickers = {"^DJI","^GSPC","^IXIC","^TNX"};
+        Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
+        for(String ticker: tickers){
+            List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
+            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            stocks.put(ticker,change);
+        }
+
+
+        return stocks;
+
+    }
+
+    public HashMap<String,Double> getIndicesMonth() throws IOException {
+        HashMap<String,Double> stocks = new HashMap<>();
+
+        Calendar calendar = new GregorianCalendar();
+        LocalDate date = LocalDate.now().minusDays(28);
+
+
+        calendar.set(2021,date.getMonthValue()-1,date.getDayOfMonth()-1);
+        String[] tickers = {"^DJI","^GSPC","^IXIC","^TNX"};
+        Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
+        for(String ticker: tickers){
+            List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
+            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            stocks.put(ticker,change);
+        }
+
+
+        return stocks;
+
+    }
+
+    public HashMap<String,Double> getIndicesMonth3() throws IOException {
+        HashMap<String,Double> stocks = new HashMap<>();
+
+        Calendar calendar = new GregorianCalendar();
+        LocalDate date = LocalDate.now().minusDays(28*3);
+
+
+        calendar.set(2021,date.getMonthValue()-1,date.getDayOfMonth()-1);
+        String[] tickers = {"^DJI","^GSPC","^IXIC","^TNX"};
+        Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
+        for(String ticker: tickers){
+            List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
+            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            stocks.put(ticker,change);
+        }
+
+
+        return stocks;
+
+    }
+
 
     public static HashMap<String, Double> sortMap(HashMap<String, Double> hm)
     {

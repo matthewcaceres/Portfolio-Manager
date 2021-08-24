@@ -29,5 +29,9 @@ public interface UserService {
     User updateUser(int id,User user);
     boolean deleteUser(int id);
     HashMap<String,Double> getMoversLosers(int id) throws IOException;
-    HashMap<String,Double> getIndices() throws IOException;
+    HashMap<String,Double> getIndicesToday() throws IOException;
+    HashMap<String,Double> getIndicesYTD() throws IOException;
+    HashMap<String,Double> getIndicesWeek() throws IOException;
+    HashMap<String,Double> getIndicesMonth() throws IOException;
+    HashMap<String,Double> getIndicesMonth3() throws IOException;
 }
