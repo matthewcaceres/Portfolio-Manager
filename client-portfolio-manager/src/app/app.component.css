@@ -1,0 +1,28 @@
+#nav-container {
+    width: 90%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#main-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+}
+
+#left-section {
+    display: flex;
+    flex-flow: column;
+}
+
+#middle-section {
+    display: flex;
+    flex-flow: column;
+}
+
+#right-section {
+    display: flex;
+    flex-flow: column;
+}

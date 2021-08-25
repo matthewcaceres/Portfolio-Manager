@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CashAccountService {
 
+    List<CashAccount> getAllCashAccounts();
+
     CashAccount getCashAccountById(int id);
 
     CashAccount addCashAccount(CashAccount acct);

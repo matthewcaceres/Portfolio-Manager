@@ -16,6 +16,11 @@ public class CashAccountServiceImpl implements CashAccountService{
     private CashAccountRepository repository;
 
     @Override
+    public List<CashAccount> getAllCashAccounts() {
+        return repository.findAll();
+    }
+
+    @Override
     public CashAccount getCashAccountById(int id) {
         Optional<CashAccount> cashAccount =repository.findById(id);
         if(cashAccount.isPresent()){
@@ -41,8 +46,6 @@ public class CashAccountServiceImpl implements CashAccountService{
         existingAccount.setTransactionList(ca.getTransactionList());
         return existingAccount;
     }
-
-
 
     @Override
     public List<Transaction> getTransactionList(int id) {
