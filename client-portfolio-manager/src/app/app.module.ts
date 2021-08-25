@@ -7,6 +7,8 @@ import { InsightsComponent } from './insights/insights.component';
 import { NetWorthComponent } from './net-worth/net-worth.component';
 import { MarketMoversComponent } from './market-movers/market-movers.component';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
+import { CashAccountComponent } from './cash-account/cash-account.component';
+import { InvestAccountComponent } from './invest-account/invest-account.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { CashFlowComponent } from './cash-flow/cash-flow.component';
     InsightsComponent,
     NetWorthComponent,
     MarketMoversComponent,
-    CashFlowComponent
+    CashFlowComponent,
+    CashAccountComponent,
+    InvestAccountComponent
   ],
   imports: [
     BrowserModule,
