@@ -9,6 +9,7 @@ import { MarketMoversComponent } from './market-movers/market-movers.component';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { CashAccountComponent } from './cash-account/cash-account.component';
 import { InvestAccountComponent } from './invest-account/invest-account.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InvestAccountComponent } from './invest-account/invest-account.componen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
