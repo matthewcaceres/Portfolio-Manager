@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -74,9 +76,9 @@ public class UserServiceImpl implements UserService{
                 days=28*3;
                 break;
             case "year":
-                date = LocalDate.of(2021,1,4);
-                Period period = Period.between(LocalDate.now(), date);
-                days = Math.abs(period.getDays());
+                date = LocalDate.of(2021, Month.JANUARY,4);
+                long daysBetwwn = ChronoUnit.DAYS.between(date,LocalDate.now());
+                days = (int) daysBetwwn;
                 break;
             default:
                 date = LocalDate.now().minusDays(7);
@@ -130,7 +132,6 @@ public class UserServiceImpl implements UserService{
                 }
             }
              val = map.get(date.format(formatter));
-            System.out.println(date);
             if(val==null){
                 map.put(date.format(formatter),map.get(oldDate));
             }
