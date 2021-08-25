@@ -5,6 +5,7 @@ import com.citi.training.PortfolioManager.repos.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -12,6 +13,11 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Autowired
     private TransactionRepository repository;
+
+    @Override
+    public List<Transaction> getAllTransactions() {
+        return repository.findAll();
+    }
 
     @Override
     public Transaction getTransactionById(int id) {

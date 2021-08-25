@@ -5,6 +5,8 @@ import com.citi.training.PortfolioManager.services.CashAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cash_account")
 @CrossOrigin(origins = "*")
@@ -12,6 +14,11 @@ public class CashAccountController {
 
     @Autowired
     private CashAccountService service;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    public List<CashAccount> getAllCashAccounts () {
+        return service.getAllCashAccounts();
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public CashAccount getCashAccountById(@PathVariable("id") int id) {
