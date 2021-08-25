@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,26 +35,38 @@ public class UserController {
         return user;
 
     }
+//    @GetMapping(value="/{id}/networth")
+//    public Double getNetworth(@PathVariable("id") int id,@RequestParam(required = false) String date){
+//        if(date==null) {
+//            double worth = 0;
+//            try {
+//                worth = service.getNetWorth(id);
+//            } catch (IOException e) {
+//                return null;
+//            }
+//            return worth;
+//        }
+//        else{
+//            double worth = 0;
+//            try {
+//                worth = service.getNetWorthSince(id, date);
+//            } catch (ParseException | IOException e) {
+//                return null;
+//            }
+//            return worth;
+//        }
+//
+//    }
     @GetMapping(value="/{id}/networth")
-    public Double getNetworth(@PathVariable("id") int id,@RequestParam(required = false) String date){
-        if(date==null) {
-            double worth = 0;
-            try {
-                worth = service.getNetWorth(id);
-            } catch (IOException e) {
-                return null;
-            }
-            return worth;
+    public HashMap<String, Double> getNetworthWeek(@PathVariable("id") int id,@RequestParam(required = false) String time){
+        HashMap<String, Double> list = null;
+        try {
+            list = service.getNetWorthTime(id, time);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else{
-            double worth = 0;
-            try {
-                worth = service.getNetWorthSince(id, date);
-            } catch (ParseException | IOException e) {
-                return null;
-            }
-            return worth;
-        }
+
+        return list;
 
     }
 

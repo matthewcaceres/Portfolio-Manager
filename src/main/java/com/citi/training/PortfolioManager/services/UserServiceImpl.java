@@ -12,7 +12,10 @@ import yahoofinance.histquotes.Interval;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -41,6 +44,116 @@ public class UserServiceImpl implements UserService{
         }
 
         return worth;
+    }
+
+    public HashMap<String,Double> getNetWorthTime(int id, String time) throws IOException {
+        User user = repository.findById(id).get();
+        HashMap<String,Double> map = new HashMap<>();
+        ArrayList<String> tickers = new ArrayList<>();
+        for(InvestmentAccount ia: user.getInvestmentAccountList()){
+            for(Security security: ia.getSecurities()){
+                tickers.add(security.getSymbol());
+            }
+        }
+        Calendar calendar = new GregorianCalendar();
+        LocalDate date = null;
+        int days=0;
+        switch(time){
+            case "week":
+                date = LocalDate.now().minusDays(7);
+                days=7;
+                break;
+            case "month":
+                date = LocalDate.now().minusDays(28);
+                days=28;
+                break;
+            case "quarter":
+                date = LocalDate.now().minusDays(28*3);
+                days=28*3;
+                break;
+            case "year":
+                date = LocalDate.of(2021,1,4);
+                Period period = Period.between(LocalDate.now(), date);
+                days = Math.abs(period.getDays());
+                break;
+            default:
+                date = LocalDate.now().minusDays(7);
+                break;
+        }
+        if(time.equals("year"))
+            calendar.set(2021,0,4);
+        else
+            calendar.set(2021,date.getMonthValue()-1,date.getDayOfMonth());
+
+
+        String[] tickersArr= new String[tickers.size()];
+        tickersArr = tickers.toArray(tickersArr);
+        Map<String,Stock> stocksTickers = YahooFinance.get(tickersArr);
+        for(String ticker: tickers){
+            List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.DAILY);
+            for(HistoricalQuote h : history){
+                String dateF =format((GregorianCalendar) h.getDate());
+                Double val = map.get(dateF);
+                if(val==null)
+                    map.put(dateF,h.getClose().doubleValue());
+                else
+                    map.put(dateF,val + h.getClose().doubleValue());
+            }
+
+        }
+
+        GregorianCalendar calendar2 = new GregorianCalendar();
+        LocalDate date2 = LocalDate.now();
+        calendar2.set(2021,date2.getMonthValue()-1,date2.getDayOfMonth());
+        String dateToday = format(calendar2);
+        Double val = map.get(dateToday);
+        if(val==null){
+            double worth = 0;
+            for(String ticker: tickers){
+                worth += YahooFinance.get(ticker).getQuote().getPrice().doubleValue();
+            }
+            map.put(dateToday,worth);
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+        String oldDate=date.format(formatter);
+        int i =0;
+        while(i<=days){
+            double worth =0;
+            for(CashAccount ca : user.getCashAccountList()){
+                for(Transaction t: ca.getTransactionList()){
+                    if(t.getDate().isBefore(date)){
+                        worth+=t.getValue();
+                    }
+                }
+            }
+             val = map.get(date.format(formatter));
+            System.out.println(date);
+            if(val==null){
+                map.put(date.format(formatter),map.get(oldDate));
+            }
+            else {
+
+                map.put(date.format(formatter), val + worth);
+            }
+            oldDate=date.format(formatter);
+            date = date.plusDays(1);
+            i++;
+
+        }
+
+
+
+        return map;
+
+    }
+
+    public static String format(GregorianCalendar calendar) {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
+        fmt.setCalendar(calendar);
+        String dateFormatted = fmt.format(calendar.getTime());
+
+        return dateFormatted;
     }
 
     public HashMap<String,Double> getMoversLosers(int id) throws IOException {
@@ -75,7 +188,7 @@ public class UserServiceImpl implements UserService{
         Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
         for(String ticker: tickers){
             List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
-            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            Double change = ((YahooFinance.get(ticker).getQuote().getPrice().doubleValue() - history.get(0).getClose().doubleValue())/YahooFinance.get(ticker).getQuote().getPrice().doubleValue())*100;
             stocks.put(ticker,change);
         }
 
@@ -96,7 +209,7 @@ public class UserServiceImpl implements UserService{
         Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
         for(String ticker: tickers){
             List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
-            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            Double change = ((YahooFinance.get(ticker).getQuote().getPrice().doubleValue() - history.get(0).getClose().doubleValue())/YahooFinance.get(ticker).getQuote().getPrice().doubleValue())*100;
             stocks.put(ticker,change);
         }
 
@@ -117,7 +230,7 @@ public class UserServiceImpl implements UserService{
         Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
         for(String ticker: tickers){
             List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
-            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            Double change = ((YahooFinance.get(ticker).getQuote().getPrice().doubleValue() - history.get(0).getClose().doubleValue())/YahooFinance.get(ticker).getQuote().getPrice().doubleValue())*100;
             stocks.put(ticker,change);
         }
 
@@ -138,7 +251,7 @@ public class UserServiceImpl implements UserService{
         Map<String,Stock> stocksTickers = YahooFinance.get(tickers);
         for(String ticker: tickers){
             List<HistoricalQuote> history = stocksTickers.get(ticker).getHistory(calendar,Interval.WEEKLY);
-            Double change = ((history.get(history.size()-1).getClose().doubleValue() - history.get(0).getClose().doubleValue())/history.get(history.size()-1).getClose().doubleValue())*100;
+            Double change = ((YahooFinance.get(ticker).getQuote().getPrice().doubleValue() - history.get(0).getClose().doubleValue())/YahooFinance.get(ticker).getQuote().getPrice().doubleValue())*100;
             stocks.put(ticker,change);
         }
 
