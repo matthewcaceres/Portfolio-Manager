@@ -1,7 +1,18 @@
-<div>
-  <canvas baseChart
-                [data]="chartData"
-                [chartType] = "chartType"
-                [labels] = "lineChartLabels"
-                ></canvas>
-    </div>
+<div class="container flex-fill pt-4">
+  <div class="d-flex justify-content-between">
+    <h2>Net worth</h2>
+    <h2>${{ chartData[chartData.length - 1] }}</h2>
+  </div>
+  <div class="d-flex justify-content-between">
+    <h5 (click)="changeTime()">{{timeFrames[timeFrame]}}</h5>
+
+  </div>
+  <br />
+  <canvas
+    baseChart
+    [data]="chartData"
+    [chartType]="chartType"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+  ></canvas>
+</div>
