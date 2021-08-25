@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class CashAccountService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getCashAccounts() {
+    return this.http.get('http://localhost:8080/cash_account')
+  }
+  
 }

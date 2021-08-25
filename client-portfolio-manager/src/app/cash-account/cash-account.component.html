@@ -1,1 +1,8 @@
-<p>cash-account works!</p>
+<section>
+    <!-- <button (click) ='makeCall()'>Get Cash Accounts</button> -->
+    <article>
+        <ul>
+            <li *ngFor='let result of apiResults'>Id: {{result.id}} name: {{result.name}}</li>
+        </ul>
+    </article>
+</section>
