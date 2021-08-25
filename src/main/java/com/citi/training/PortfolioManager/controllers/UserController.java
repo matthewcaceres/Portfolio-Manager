@@ -58,8 +58,8 @@ public class UserController {
 //
 //    }
     @GetMapping(value="/{id}/networth")
-    public HashMap<String, Double> getNetworthWeek(@PathVariable("id") int id,@RequestParam(required = false) String time){
-        HashMap<String, Double> list = null;
+    public List<Double> getNetworthWeek(@PathVariable("id") int id,@RequestParam(required = false) String time){
+        List<Double> list = null;
         try {
             list = service.getNetWorthTime(id, time);
         } catch (IOException e) {

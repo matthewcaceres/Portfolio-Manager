@@ -34,5 +34,5 @@ public interface UserService {
     HashMap<String,Double> getIndicesWeek() throws IOException;
     HashMap<String,Double> getIndicesMonth() throws IOException;
     HashMap<String,Double> getIndicesMonth3() throws IOException;
-    HashMap<String,Double> getNetWorthTime(int id, String time) throws IOException;
+    List<Double> getNetWorthTime(int id, String time) throws IOException;
 }
