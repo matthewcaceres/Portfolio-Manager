@@ -22,6 +22,13 @@ public class Transaction implements Serializable {
     @Column(name="date")
     private LocalDate date;
 
+    //what was it spend on and where it came from
+    @Column(name="spent_on")
+    private String spentOn;
+
+    @Column(name="came_from")
+    private String cameFrom;
+
     public int getId() {
         return id;
     }
@@ -52,5 +59,21 @@ public class Transaction implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getSpentOn() {
+        return spentOn;
+    }
+
+    public void setSpentOn(String spentOn) {
+        this.spentOn = spentOn;
+    }
+
+    public String getCameFrom() {
+        return cameFrom;
+    }
+
+    public void setCameFrom(String cameFrom) {
+        this.cameFrom = cameFrom;
     }
 }
