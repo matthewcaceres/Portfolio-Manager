@@ -46,13 +46,15 @@ public class UserServiceImpl implements UserService{
         return worth;
     }
 
-    public HashMap<String,Double> getNetWorthTime(int id, String time) throws IOException {
+    public List<Double> getNetWorthTime(int id, String time) throws IOException {
         User user = repository.findById(id).get();
         HashMap<String,Double> map = new HashMap<>();
         ArrayList<String> tickers = new ArrayList<>();
+        HashMap<String,Integer> tickerMap = new HashMap<>();
         for(InvestmentAccount ia: user.getInvestmentAccountList()){
             for(Security security: ia.getSecurities()){
                 tickers.add(security.getSymbol());
+                tickerMap.put(security.getSymbol(),security.getQuantity());
             }
         }
         Calendar calendar = new GregorianCalendar();
@@ -95,9 +97,9 @@ public class UserServiceImpl implements UserService{
                 String dateF =format((GregorianCalendar) h.getDate());
                 Double val = map.get(dateF);
                 if(val==null)
-                    map.put(dateF,h.getClose().doubleValue());
+                    map.put(dateF,h.getClose().doubleValue() * tickerMap.get(ticker));
                 else
-                    map.put(dateF,val + h.getClose().doubleValue());
+                    map.put(dateF,val + (h.getClose().doubleValue() *tickerMap.get(ticker)));
             }
 
         }
@@ -110,7 +112,7 @@ public class UserServiceImpl implements UserService{
         if(val==null){
             double worth = 0;
             for(String ticker: tickers){
-                worth += YahooFinance.get(ticker).getQuote().getPrice().doubleValue();
+                worth += YahooFinance.get(ticker).getQuote().getPrice().doubleValue() * tickerMap.get(ticker);
             }
             map.put(dateToday,worth);
         }
@@ -144,7 +146,7 @@ public class UserServiceImpl implements UserService{
 
 
 
-        return map;
+        return sortMapDate(map);
 
     }
 
@@ -261,37 +263,55 @@ public class UserServiceImpl implements UserService{
     }
 
 
-    public static HashMap<String, Double> sortMap(HashMap<String, Double> hm)
-    {
+    public static HashMap<String, Double> sortMap(HashMap<String, Double> hm) {
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Double> > list =
-                new LinkedList<Map.Entry<String, Double> >(hm.entrySet());
+        List<Map.Entry<String, Double>> list =
+                new LinkedList<Map.Entry<String, Double>>(hm.entrySet());
 
         // Sort the list
         Collections.sort(list, (o1, o2) -> (o1.getValue()).compareTo(o2.getValue()));
 
         // put data from sorted list to hashmap
         HashMap<String, Double> temp = new LinkedHashMap<String, Double>();
-        int posvalues =0;
-        int negvalues =0;
-        for (int i=0;i<list.size();i++) {
-            if(list.get(i).getValue()<0 && negvalues!=5){
-                negvalues+=1;
+        int posvalues = 0;
+        int negvalues = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getValue() < 0 && negvalues != 5) {
+                negvalues += 1;
                 temp.put(list.get(i).getKey(), list.get(i).getValue());
-            }
-            else
+            } else
                 break;
 
         }
-        for (int i=list.size()-1;i>=0;i--) {
-            if(list.get(i).getValue()>0 && posvalues!=5){
-                posvalues+=1;
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (list.get(i).getValue() > 0 && posvalues != 5) {
+                posvalues += 1;
                 temp.put(list.get(i).getKey(), list.get(i).getValue());
-            }
-            else
+            } else
                 break;
         }
         return temp;
+    }
+        public static List<Double> sortMapDate(HashMap<String, Double> hm)
+        {
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+            // Create a list from elements of HashMap
+            List<Map.Entry<String, Double> > list =
+                    new LinkedList<Map.Entry<String, Double> >(hm.entrySet());
+
+            // Sort the list
+            Collections.sort(list, Comparator.comparing(o -> LocalDate.parse(o.getKey(), formatter)));
+
+            // put data from sorted list to hashmap
+            List< Double> temp = new LinkedList<Double>();
+
+            for (int i=0;i<list.size();i++) {
+               temp.add(list.get(i).getValue());
+
+            }
+
+            return temp;
     }
 
     public double getNetWorthSince(int id, String date) throws ParseException, IOException {
