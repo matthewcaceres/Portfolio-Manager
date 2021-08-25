@@ -307,7 +307,7 @@ public class UserServiceImpl implements UserService{
             List< Double> temp = new LinkedList<Double>();
 
             for (int i=0;i<list.size();i++) {
-               temp.add(list.get(i).getValue());
+               temp.add((double)Math.round(list.get(i).getValue()*100)/100);
 
             }
 
