@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms'
 import { ChartsModule } from 'ng2-charts';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { ChartsModule } from 'ng2-charts';
     NgbModule,
     HttpClientModule,
     FormsModule,
-   ChartsModule
+   ChartsModule,
+   NgbModule
 
   ],
   providers: [],

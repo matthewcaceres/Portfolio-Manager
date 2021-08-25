@@ -9,7 +9,6 @@
 #main-container {
     display: flex;
     flex-flow: row;
-    justify-content: space-evenly;
 }
 
 #left-section {
