@@ -29,21 +29,25 @@ class Transaction {
   styleUrls: ['./cash-flow.component.css'],
 })
 export class CashFlowComponent implements OnInit {
-
   timeFrames = ['LAST 7 DAYS', 'LAST 30 DAYS', 'LAST 3 MONTHS', 'YEAR TO DATE'];
   timeFrame = 0;
   pieChartColors = [
     {
       backgroundColor: [
         '#0d5fbc',
-        '#0074ce',
-        '#0088dd',
-        '#009ce9',
-        '#00b0f2',
-        '#00c3f8',
-        '#00d6fc',
-        '#00e9fe',
-        '#00fbff',
+'#0095e5',
+'#00c9f9',
+'#00fbff'
+      ],
+    },
+  ];
+  pieChartColors2 = [
+    {
+      backgroundColor: [
+        '#fa890f',
+'#ec6a00',
+'#dd4800',
+'#cc1900',
       ],
     },
   ];
@@ -129,7 +133,7 @@ export class CashFlowComponent implements OnInit {
     },
   };
   constructor(private cashFlowService: CashFlowService) {}
-  daysToString(days:number){
+  daysToString(days: number) {
     let date: Date = new Date();
     date.setDate(date.getDate() - days - 1);
 
@@ -143,42 +147,39 @@ export class CashFlowComponent implements OnInit {
     return [year, month, day].join('-');
   }
   ngOnInit(): void {
-   
     this.getCashAccounts(this.daysToString(7));
   }
-  changeDate(){
-    this.income=0;
-    this.spent=0;
+  changeDate() {
+    this.income = 0;
+    this.spent = 0;
     this.chartSpent = [];
-    this.chartSpentLabels=[];
+    this.chartSpentLabels = [];
     this.chartSpentMap = new Map();
     this.chartEarned = [];
-    this.chartEarnedLabels= [];
+    this.chartEarnedLabels = [];
     this.chartEarnedMap = new Map();
-    switch(this.timeFrame){
+    switch (this.timeFrame) {
       case 0:
-        this.getCashAccounts(this.daysToString(28))
+        this.getCashAccounts(this.daysToString(28));
         this.timeFrame++;
         break;
       case 1:
-        this.getCashAccounts(this.daysToString(28*3))
+        this.getCashAccounts(this.daysToString(28 * 3));
         this.timeFrame++;
         break;
       case 2:
         let today: Date = new Date();
-          let date2: Date = new Date('01/04/2021');
-          let diff = today.getTime() - date2.getTime();
-          let diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-        this.getCashAccounts(this.daysToString(diffDays))
+        let date2: Date = new Date('01/04/2021');
+        let diff = today.getTime() - date2.getTime();
+        let diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+        this.getCashAccounts(this.daysToString(diffDays));
         this.timeFrame++;
         break;
       case 3:
-        this.getCashAccounts(this.daysToString(7))
-        this.timeFrame=0;
+        this.getCashAccounts(this.daysToString(7));
+        this.timeFrame = 0;
         break;
-
     }
-    
   }
   getCashAccounts(time: string) {
     this.cashFlowService.getTransactions(1, time).subscribe(
