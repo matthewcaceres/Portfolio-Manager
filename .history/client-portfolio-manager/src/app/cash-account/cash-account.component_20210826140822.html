@@ -1,0 +1,33 @@
+<section>
+    <!-- <button (click) ='makeCall()'>Get Cash Accounts</button> -->
+    <article>
+        <ul>
+            <li *ngFor='let account of accounts'>name: {{accounts.name}} : {{accounts.total}}</li>
+        </ul>
+    </article>
+</section>
+
+<div><h5>Investment accounts</h5>
+
+    <div class="container" id="main-container"><div>
+        <table class="table" style="width: 40%">
+          <tr>
+            <th>Account-Name</th>
+            <th>total</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let account of accounts">
+            <td>
+              {{account.name}}
+            </td>
+            <td>
+              {{account.user_id}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <p>
+          <!--<button (click)="addInvestAccount(1)"> Add Account</button>-->
+        </p>
+      </div></div>

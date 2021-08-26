@@ -1,0 +1,35 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Investment Accounts</h5>
+    </div>
+    <table class="table" style="width: 40%">
+        <tr>
+          <th>Account-Name</th>
+          <th>total</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let account of accounts">
+          <td>
+            {{account.name}}
+          </td>
+          <td>
+            {{account.user_id}}
+          </td>
+        </tr>
+      </table>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      Featured
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Cras justo odio</li>
+      \
+    </ul>
+  </div>
+

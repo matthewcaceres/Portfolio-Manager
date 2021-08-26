@@ -1,0 +1,43 @@
+<div class="card" style="width: 14rem;">
+    <div class="card-header">
+      Cash Accounts
+    </div>
+    <table class="card-table table">
+        <thead>
+          <tr>
+            <th scope="col">Account Name</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           {{acc}}
+            
+          </tr>
+          <tr>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    <table class="table" style="width: 40%">
+        <tr>
+          <th>Account Name</th>
+          <th>total</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let account of accounts">
+          <td>
+            {{account.name}}
+          </td>
+          <td>
+            {{account.total}}
+          </td>
+        </tr>
+      </table>
+  </div>

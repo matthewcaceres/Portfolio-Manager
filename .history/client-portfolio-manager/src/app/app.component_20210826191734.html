@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href= "assets/images/citi-logo.png">
+
+    <title>Portfolio Manager</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+    
+
+    <!-- Custom styles for this template -->
+    <link href="app.component.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Jack</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <img src="assets/images/citi-logo.png" class="rounded float-left" alt="citi-logo"width>
+
+    </nav>
+    <div  class="contaier-fluid">
+      <div class="row">
+      <div id="left-section" class = "col-md-2 d-md-block bg-light sidebar collapse">
+          <app-cash-account></app-cash-account>
+          <app-invest-account></app-invest-account>
+        </div>
+        <div  id="middle-section" class="col-md-8 ms-sm-auto  ">
+          <app-net-worth></app-net-worth>
+          <app-cash-flow></app-cash-flow>
+        </div>
+        <div id="right-section"  class="col-md-2 ms-sm-auto ">
+          <app-market-movers></app-market-movers>
+          <app-insights></app-insights>
+        </div>
+        </div>
+        
+      </div>
+

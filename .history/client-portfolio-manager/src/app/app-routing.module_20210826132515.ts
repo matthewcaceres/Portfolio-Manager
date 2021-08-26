@@ -1,0 +1,13 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { InvestAccountComponent } from './invest-account/invest-account.component';
+
+const routes: Routes = [
+  {path: '/', component: InvestAccountComponent},
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

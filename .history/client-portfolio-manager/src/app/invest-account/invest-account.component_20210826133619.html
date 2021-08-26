@@ -1,0 +1,24 @@
+<div><h3>Investment accounts</h3></div>
+
+<div>
+  <table class="table" style="width: 40%">
+    <tr>
+      <th>Account-Name</th>
+      <th>Author</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let account of accounts">
+      <td>
+        {{account.name}}
+      </td>
+      <td>
+        {{account.user_id}}
+      </td>
+    </tr>
+  </table>
+</div>
+<div>
+  <p>
+    <!--<button (click)="addInvestAccount(1)"> Add Account</button>-->
+  </p>
+</div>

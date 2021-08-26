@@ -1,0 +1,25 @@
+<p>invest-account works!</p>
+<div id='left-section'><h1>Investment Accounts</h1></div>
+
+<div>
+  <table class="table" style="width: 40%">
+    <tr>
+      <th>Account Name</th>
+      <th>user_id</th>
+    </tr>
+    <tr *ngFor="let book of books">
+      <td>
+        {{book.title}}
+      </td>
+      <td>
+        {{book.author}}
+      </td>
+    </tr>
+  </table>
+</div>
+<div>
+  <p>
+    <button (click)="addBook()"> Add Book</button>
+  </p>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,21 @@
+<div class="card" style="width: 14rem;">
+    <div class="card-header">
+      Investment Accounts
+    </div>
+    <table class="table" style="width: 50%">
+        <tr>
+          <th>Account-Name</th>
+          <th>total</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let account of accounts">
+          <li>
+            {{account.name}}
+          </li>
+          <td>
+            {{account.user_id}}
+          </td>
+        </tr>
+      </table>
+  </div>
+
