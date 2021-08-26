@@ -3,6 +3,7 @@ package com.citi.training.PortfolioManager.services;
 
 import com.citi.training.PortfolioManager.entities.InvestmentAccount;
 import com.citi.training.PortfolioManager.entities.Security;
+import java.io.IOException;
 
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface InvestService {
     String deleteInvestAccount (InvestmentAccount account);
 
     InvestmentAccount updateInvestAccount(InvestmentAccount account);
+
+    double accountTotal(int id) throws IOException;
 
 
 
