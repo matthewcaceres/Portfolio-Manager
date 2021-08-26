@@ -29,7 +29,19 @@ class Transaction {
   styleUrls: ['./cash-flow.component.css'],
 })
 export class CashFlowComponent implements OnInit {
-
+  pieChartColors = [
+    {
+      backgroundColor: ['#0d5fbc',
+        '#0074ce',
+        '#0088dd',
+        '#009ce9',
+        '#00b0f2',
+        '#00c3f8',
+        '#00d6fc',
+        '#00e9fe',
+        '#00fbff']
+    },
+  ];
   cashAccounts: Account[] = [];
   time: string = 'week';
   chartSpent: SingleDataSet = [];
@@ -57,7 +69,7 @@ export class CashFlowComponent implements OnInit {
       let fontSize = 1.5
       ctx.font = fontSize + "em sans-serif";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = '#dddddd';
+      ctx.fillStyle = 'grey';
       let sum =0;
       this.chartSpent.forEach((element:any)=>{
         sum+=element;
@@ -92,7 +104,7 @@ export class CashFlowComponent implements OnInit {
       let fontSize = 1.5
       ctx.font = fontSize + "em sans-serif";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = '#dddddd';
+      ctx.fillStyle = 'grey';
       let sum =0;
       this.chartEarned.forEach((element:any)=>{
         sum+=element;

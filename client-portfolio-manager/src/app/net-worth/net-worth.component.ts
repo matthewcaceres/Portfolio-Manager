@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
-import { Label, SingleDataSet } from 'ng2-charts';
+import { Color, Label, SingleDataSet } from 'ng2-charts';
 import { NetWorthService } from '../../services/net-worth.service';
 @Component({
   selector: 'app-net-worth',
@@ -15,6 +15,12 @@ export class NetWorthComponent implements OnInit {
   chartData: [] = [];
   chartType: ChartType = 'line';
   lineChartLabels: Label[] = [];
+  lineChartColors: Color[] = [
+    {
+      borderColor: '#0d5fbc',
+      backgroundColor: '#b4c4ec',
+    },
+  ];
   lineChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -24,22 +30,22 @@ export class NetWorthComponent implements OnInit {
       enabled: true,
     },
     elements: {
-      point:{
-          radius: 0
-      }
-  },
+      point: {
+        radius: 0,
+      },
+    },
+
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [
         {
           ticks: {
-            autoSkip:true,
+            autoSkip: true,
             maxTicksLimit: 12,
             beginAtZero: true,
             display: true,
           },
-          gridLines:{
-          }
+          gridLines: {},
         },
       ],
       yAxes: [
@@ -97,10 +103,21 @@ export class NetWorthComponent implements OnInit {
         let num =
           this.chartData[this.chartData.length - 1] -
           this.chartData[this.chartData.length - this.chartData.length];
-          let percent = num/this.chartData[this.chartData.length - this.chartData.length] *100;
+        let percent =
+          (num /
+            this.chartData[this.chartData.length - this.chartData.length]) *
+          100;
         if (num > 0) {
-          this.difference = '+' + num.toFixed(2) +" (" +percent.toFixed(2)+"%)";
-        } else this.difference = '-' + num.toFixed(2) + num.toFixed(2) +" (" +percent.toFixed(2)+"%)";;
+          this.difference =
+            '+' + num.toFixed(2) + ' (' + percent.toFixed(2) + '%)';
+        } else
+          this.difference =
+            '-' +
+            num.toFixed(2) +
+            num.toFixed(2) +
+            ' (' +
+            percent.toFixed(2) +
+            '%)';
       }
     );
   }
