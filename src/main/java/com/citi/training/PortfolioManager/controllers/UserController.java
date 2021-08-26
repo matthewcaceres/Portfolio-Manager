@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -120,8 +121,9 @@ public class UserController {
     }
 
     @GetMapping(value="/{id}/cash")
-    public List<CashAccount> getCashAccounts(@PathVariable("id") int id){
-        return service.getCashAccounts(id);
+    public List<CashAccount> getCashAccounts(@PathVariable("id") int id,@RequestParam(required = false) String time){
+        LocalDate date = LocalDate.parse(time);
+        return service.getCashFlow(id,date);
 
     }
 

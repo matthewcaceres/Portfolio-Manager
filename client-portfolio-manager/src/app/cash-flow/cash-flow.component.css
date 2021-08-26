@@ -1,0 +1,19 @@
+hr{
+   margin-top:0;
+   margin-bottom:5px;
+}
+
+
+h6{
+    color:grey
+   
+ }
+
+ #date:hover{
+   cursor: pointer;
+   color:rgb(66, 66, 66)
+}
+
+ #flow{
+   color:#0d5fbc
+ }

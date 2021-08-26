@@ -12,4 +12,8 @@ export class NetWorthService {
     return this.http.get(`http://portfoliomanager-portfoliomanager.namdevops12.conygre.com/account/${id}/networth?time=${time}`)
   }
 
+   getUser(id:number){ // all httpClient services are OBSERVABLES
+    return this.http.get(`http://portfoliomanager-portfoliomanager.namdevops12.conygre.com/account/${id}`)
+  }
+
 }

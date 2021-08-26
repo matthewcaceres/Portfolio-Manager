@@ -315,32 +315,41 @@ public class UserServiceImpl implements UserService{
             return temp;
     }
 
-    public double getNetWorthSince(int id, String date) throws ParseException, IOException {
 
-        LocalDate beforeDate= LocalDate.parse(date);
-        User user = repository.findById(id).get();
-        double worth = 0;
-        for(CashAccount ca : user.getCashAccountList()){
-            for(Transaction t: ca.getTransactionList()){
-                if(t.getDate().isBefore(beforeDate)){
-                    worth+=t.getValue();
-                }
-            }
-        }
-        for(InvestmentAccount ia: user.getInvestmentAccountList()){
-            for(Security security: ia.getSecurities()){
-                Stock stock = YahooFinance.get(security.getSymbol());
-//                stock.getHistory()
-                worth+=security.getQuantity() * stock.getQuote().getPrice().doubleValue();
-            }
-        }
-
-        return worth;
-    }
 
     public List<CashAccount> getCashAccounts(int id){
         User user = repository.findById(id).get();
         return user.getCashAccountList();
+    }
+
+    public List<CashAccount> getCashFlow(int id, LocalDate date){
+        User user = repository.findById(id).get();
+        List<CashAccount> accounts= new ArrayList<CashAccount>();
+        List<CashAccount> userAccounts = user.getCashAccountList();
+        for(CashAccount ca: userAccounts){
+            CashAccount ac = new CashAccount();
+            ac.setUserId(ca.getUserId());
+            ac.setName(ca.getName());
+            ac.setId(ca.getId());
+            ac.setTotal(ca.getTotal());
+            List<Transaction> transactions = new ArrayList<>();
+            ac.setTransactionList(transactions);
+            for(Transaction t: ca.getTransactionList()){
+                if(t.getDate().isAfter(date)) {
+                    Transaction copy = new Transaction();
+                    copy.setCashId(t.getCashId());
+                    copy.setId(t.getId());
+                    copy.setValue(t.getValue());
+                    copy.setCameFrom(t.getCameFrom());
+                    copy.setSpentOn(t.getSpentOn());
+                    copy.setDate(t.getDate());
+                    transactions.add(t);
+                }
+            }
+            accounts.add(ac);
+        }
+
+        return accounts;
     }
 
     @Override

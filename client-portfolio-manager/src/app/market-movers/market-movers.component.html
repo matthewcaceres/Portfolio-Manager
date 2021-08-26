@@ -1,1 +1,25 @@
-<p>market-movers works!</p>
+<section>
+    <br>
+    <h3>Market Movers</h3>
+    <section>
+        <h4>Your Gainers</h4>
+        <hr>
+        <table class="d-flex flex-column">
+            <tr class="d-flex justify-content-between" *ngFor='let gainer of marketGainers'>
+                <td>{{gainer.ticker}}</td>
+                <td class="text-success">{{gainer.percent}}% </td>
+            </tr>
+        </table>
+    </section>
+    <br>
+    <section>
+        <h4>Your Losers</h4>
+        <hr>
+        <table class="d-flex flex-column">
+            <tr class="d-flex justify-content-between" *ngFor='let loser of marketLosers'>
+                <td >{{loser.ticker}}</td>
+                <td class="text-danger">{{loser.percent}}% </td>
+            </tr>
+        </table>
+    </section>
+</section>

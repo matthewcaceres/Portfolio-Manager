@@ -25,3 +25,7 @@
     display: flex;
     flex-flow: column;
 }
+
+header{
+    height: 60px
+}
