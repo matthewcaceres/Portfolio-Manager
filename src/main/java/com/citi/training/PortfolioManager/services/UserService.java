@@ -7,16 +7,13 @@ import com.citi.training.PortfolioManager.entities.User;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
     User getUserById(int id);
-    double getNetWorth(int id) throws IOException;
-    double getNetWorthSince(int id, String beforeDate) throws ParseException, IOException;
-
-    List<CashAccount> getCashAccounts(int id);
 
     List<User> getAll();
 
@@ -35,4 +32,5 @@ public interface UserService {
     HashMap<String,Double> getIndicesMonth() throws IOException;
     HashMap<String,Double> getIndicesMonth3() throws IOException;
     List<Double> getNetWorthTime(int id, String time) throws IOException;
+    List<CashAccount> getCashFlow(int id, LocalDate date);
 }
