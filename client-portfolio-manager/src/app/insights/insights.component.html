@@ -1,1 +1,21 @@
-<p>insights works!</p>
+<section>
+    <h3>Indices</h3>
+    <section class="d-flex">
+        <form >
+            <select class="form-select form-select-sm" aria-label="Default select example" name="timeParam" [(ngModel)]='timeParam'>
+                <option value="none" selected disabled hidden> </option>
+                <option *ngFor = 'let time of times'>{{time}}</option>
+            </select>
+        </form>
+        <button class="btn btn-primary btn-sm btn-light" (click) = 'getIndices(timeParam)'>Get Indices</button>
+    </section>
+    <hr>
+    <table class="d-flex flex-column">
+        <tr class="d-flex justify-content-between">
+            <td class="fs-6 text border text-success" [ngClass]="{'text-danger': index.percent < 0}" *ngFor='let index of indices'>{{index.percent}}% </td>
+        </tr>
+        <tr class="d-flex justify-content-between">
+            <td *ngFor='let index of indices'>{{index.ticker}}</td>
+        </tr>
+    </table>
+</section>
