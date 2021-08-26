@@ -100,7 +100,7 @@ export class NetWorthComponent implements OnInit {
       },
       () => {},
       () => {
-        let num =
+        let num:number =
           this.chartData[this.chartData.length - 1] -
           this.chartData[this.chartData.length - this.chartData.length];
         let percent =
@@ -112,8 +112,7 @@ export class NetWorthComponent implements OnInit {
             '+' + num.toFixed(2) + ' (' + percent.toFixed(2) + '%)';
         } else
           this.difference =
-            '-' +
-            num.toFixed(2) +
+            
             num.toFixed(2) +
             ' (' +
             percent.toFixed(2) +

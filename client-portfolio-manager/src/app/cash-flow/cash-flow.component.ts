@@ -29,9 +29,13 @@ class Transaction {
   styleUrls: ['./cash-flow.component.css'],
 })
 export class CashFlowComponent implements OnInit {
+
+  timeFrames = ['LAST 7 DAYS', 'LAST 30 DAYS', 'LAST 3 MONTHS', 'YEAR TO DATE'];
+  timeFrame = 0;
   pieChartColors = [
     {
-      backgroundColor: ['#0d5fbc',
+      backgroundColor: [
+        '#0d5fbc',
         '#0074ce',
         '#0088dd',
         '#009ce9',
@@ -39,7 +43,8 @@ export class CashFlowComponent implements OnInit {
         '#00c3f8',
         '#00d6fc',
         '#00e9fe',
-        '#00fbff']
+        '#00fbff',
+      ],
     },
   ];
   cashAccounts: Account[] = [];
@@ -50,43 +55,43 @@ export class CashFlowComponent implements OnInit {
   chartEarned: SingleDataSet = [];
   chartEarnedLabels: Label[] = [];
   chartEarnedMap = new Map();
-  income:number=0;
-  spent:number=0;
+  income: number = 0;
+  spent: number = 0;
   chartType: ChartType = 'doughnut';
   chartOptionsEarn: ChartOptions = {
     responsive: true,
     legend: {
       display: false,
     },
-   
-   animation:{
-     onProgress:(chart)=> {
-      let width = chart.chart.width,
-        height = chart.chart.height,
-        ctx = chart.chart.ctx;
 
-      ctx.restore();
-      let fontSize = 1.5
-      ctx.font = fontSize + "em sans-serif";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = 'grey';
-      let sum =0;
-      this.chartSpent.forEach((element:any)=>{
-        sum+=element;
-      })
-      this.income=sum;
-      let text = "$" + sum,
-        textX = Math.round((width - ctx.measureText(text).width) / 2),
-        textY = height / 2 + 15;
+    animation: {
+      onProgress: (chart) => {
+        let width = chart.chart.width,
+          height = chart.chart.height,
+          ctx = chart.chart.ctx;
 
-      ctx.fillText(text, textX, textY);
-      text = "Income",
-      textX = Math.round((width - ctx.measureText(text).width) / 2),
-      textY = height / 2 - 15;
-      ctx.fillText(text, textX, textY);
-      ctx.save();
-    }
-   }
+        ctx.restore();
+        let fontSize = 1.5;
+        ctx.font = fontSize + 'em sans-serif';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'grey';
+        let sum = 0;
+        this.chartEarned.forEach((element: any) => {
+          sum += element;
+        });
+        this.income = sum;
+        let text = '$' + sum,
+          textX = Math.round((width - ctx.measureText(text).width) / 2),
+          textY = height / 2 + 15;
+
+        ctx.fillText(text, textX, textY);
+        (text = 'Income'),
+          (textX = Math.round((width - ctx.measureText(text).width) / 2)),
+          (textY = height / 2 - 15);
+        ctx.fillText(text, textX, textY);
+        ctx.save();
+      },
+    },
   };
 
   chartOptionsSpent: ChartOptions = {
@@ -94,44 +99,89 @@ export class CashFlowComponent implements OnInit {
     legend: {
       display: false,
     },
-   animation:{
-     onProgress:(chart)=> {
-      let width = chart.chart.width,
-        height = chart.chart.height,
-        ctx = chart.chart.ctx;
+    animation: {
+      onProgress: (chart) => {
+        let width = chart.chart.width,
+          height = chart.chart.height,
+          ctx = chart.chart.ctx;
 
-      ctx.restore();
-      let fontSize = 1.5
-      ctx.font = fontSize + "em sans-serif";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = 'grey';
-      let sum =0;
-      this.chartEarned.forEach((element:any)=>{
-        sum+=element;
-      })
-      this.spent=sum;
-      let text = "$" + sum,
-        textX = Math.round((width - ctx.measureText(text).width) / 2),
-        textY = height / 2 + 15;
+        ctx.restore();
+        let fontSize = 1.5;
+        ctx.font = fontSize + 'em sans-serif';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'grey';
+        let sum = 0;
+        this.chartSpent.forEach((element: any) => {
+          sum += element;
+        });
+        this.spent = sum;
+        let text = '$' + sum,
+          textX = Math.round((width - ctx.measureText(text).width) / 2),
+          textY = height / 2 + 15;
 
-      ctx.fillText(text, textX, textY);
-       text = "Spending",
-      textX = Math.round((width - ctx.measureText(text).width) / 2),
-      textY = height / 2 - 15;
-      ctx.fillText(text, textX, textY);
-      ctx.save();
-    }
-   }
+        ctx.fillText(text, textX, textY);
+        (text = 'Spending'),
+          (textX = Math.round((width - ctx.measureText(text).width) / 2)),
+          (textY = height / 2 - 15);
+        ctx.fillText(text, textX, textY);
+        ctx.save();
+      },
+    },
   };
   constructor(private cashFlowService: CashFlowService) {}
+  daysToString(days:number){
+    let date: Date = new Date();
+    date.setDate(date.getDate() - days - 1);
 
-  ngOnInit(): void {
-    this.getCashAccounts();
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
+  ngOnInit(): void {
+   
+    this.getCashAccounts(this.daysToString(7));
+  }
+  changeDate(){
+    this.income=0;
+    this.spent=0;
+    this.chartSpent = [];
+    this.chartSpentLabels=[];
+    this.chartSpentMap = new Map();
+    this.chartEarned = [];
+    this.chartEarnedLabels= [];
+    this.chartEarnedMap = new Map();
+    switch(this.timeFrame){
+      case 0:
+        this.getCashAccounts(this.daysToString(28))
+        this.timeFrame++;
+        break;
+      case 1:
+        this.getCashAccounts(this.daysToString(28*3))
+        this.timeFrame++;
+        break;
+      case 2:
+        let today: Date = new Date();
+          let date2: Date = new Date('01/04/2021');
+          let diff = today.getTime() - date2.getTime();
+          let diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+        this.getCashAccounts(this.daysToString(diffDays))
+        this.timeFrame++;
+        break;
+      case 3:
+        this.getCashAccounts(this.daysToString(7))
+        this.timeFrame=0;
+        break;
 
- 
-  getCashAccounts() {
-    this.cashFlowService.getTransactions(1).subscribe(
+    }
+    
+  }
+  getCashAccounts(time: string) {
+    this.cashFlowService.getTransactions(1, time).subscribe(
       (data: any) => {
         this.cashAccounts = data;
       },
@@ -152,19 +202,25 @@ export class CashFlowComponent implements OnInit {
                   transaction.value
                 );
             } else {
-              if(this.chartSpentMap.has(transaction.spentOn))
-              this.chartSpentMap.set(transaction.spentOn,this.chartSpentMap.get(transaction.spentOn)+Math.abs(transaction.value))
-            else
-              this.chartSpentMap.set(transaction.spentOn,Math.abs(transaction.value));
-              
+              if (this.chartSpentMap.has(transaction.spentOn))
+                this.chartSpentMap.set(
+                  transaction.spentOn,
+                  this.chartSpentMap.get(transaction.spentOn) +
+                    Math.abs(transaction.value)
+                );
+              else
+                this.chartSpentMap.set(
+                  transaction.spentOn,
+                  Math.abs(transaction.value)
+                );
             }
-          }
-        );
-        this.chartEarnedLabels=Array.from(this.chartEarnedMap.keys());
-        this.chartSpentLabels=Array.from(this.chartSpentMap.keys());
-        this.chartEarned=Array.from(this.chartEarnedMap.values());
-        this.chartSpent=Array.from(this.chartSpentMap.values());
+          });
+          this.chartEarnedLabels = Array.from(this.chartEarnedMap.keys());
+          this.chartSpentLabels = Array.from(this.chartSpentMap.keys());
+          this.chartEarned = Array.from(this.chartEarnedMap.values());
+          this.chartSpent = Array.from(this.chartSpentMap.values());
+        });
       }
     );
-  })}
+  }
 }
