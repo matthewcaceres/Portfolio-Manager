@@ -76,7 +76,7 @@ export class CashFlowComponent implements OnInit {
 
         ctx.restore();
         let fontSize = 1.5;
-        ctx.font = fontSize + 'em sans-serif';
+        ctx.font = fontSize + 'em Calibri';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = 'grey';
         let sum = 0;
@@ -111,7 +111,7 @@ export class CashFlowComponent implements OnInit {
 
         ctx.restore();
         let fontSize = 1.5;
-        ctx.font = fontSize + 'em sans-serif';
+        ctx.font = fontSize + 'em Calibri';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = 'grey';
         let sum = 0;
