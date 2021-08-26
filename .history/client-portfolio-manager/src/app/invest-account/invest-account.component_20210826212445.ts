@@ -24,7 +24,7 @@ export class InvestAccountComponent implements OnInit {
       
     });
   }
-  
+  /*
   getAccounts(id: number) {
     this.service.getInvestmentAccounts(id).subscribe(data => {
       this.accounts = data;
@@ -42,7 +42,7 @@ export class InvestAccountComponent implements OnInit {
         
       });})
   }
-
+*/
 
 
   /*
