@@ -122,6 +122,9 @@ public class UserController {
 
     @GetMapping(value="/{id}/cash")
     public List<CashAccount> getCashAccounts(@PathVariable("id") int id,@RequestParam(required = false) String time){
+        if(time==null){
+            return service.getCashAccounts(1);
+        }
         LocalDate date = LocalDate.parse(time);
         return service.getCashFlow(id,date);
 

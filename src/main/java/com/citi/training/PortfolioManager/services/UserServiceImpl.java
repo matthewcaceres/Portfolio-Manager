@@ -317,10 +317,7 @@ public class UserServiceImpl implements UserService{
 
 
 
-    public List<CashAccount> getCashAccounts(int id){
-        User user = repository.findById(id).get();
-        return user.getCashAccountList();
-    }
+
 
     public List<CashAccount> getCashFlow(int id, LocalDate date){
         User user = repository.findById(id).get();
@@ -392,6 +389,11 @@ public class UserServiceImpl implements UserService{
         User original = repository.getById(id);
         original.setName(user.getName());
         return repository.save(original);
+    }
+
+    public List<CashAccount> getCashAccounts(int id){
+        User original = repository.getById(id);
+        return original.getCashAccountList();
     }
 
     public boolean deleteUser(int id){

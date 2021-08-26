@@ -33,4 +33,5 @@ public interface UserService {
     HashMap<String,Double> getIndicesMonth3() throws IOException;
     List<Double> getNetWorthTime(int id, String time) throws IOException;
     List<CashAccount> getCashFlow(int id, LocalDate date);
+    List<CashAccount> getCashAccounts(int id);
 }
