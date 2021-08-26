@@ -24,7 +24,7 @@ export class InsightsComponent implements OnInit {
     this.indicesService.getIndices(time).subscribe((data:any) => {
       for (let key of Object.keys(data)) {
         let temp:object = {};
-          temp = {ticker: key, percent: data[key]}
+          temp = {ticker: key, percent: Number.parseFloat(data[key]).toFixed(2)}
           this.indices.push(temp)
       }
     })
