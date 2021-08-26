@@ -1,17 +1,18 @@
 <header class = "navbar  stick-top  flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3  me-0 px-3">Name</a>
+  <a class="navbar-brand col-md-3  me-0 px-3">{{user.name}}'s Portfolio</a>
 </header>
-<div  class="contaier-fluid">
-<div class="row">
-<div id="left-section" class = "col-md-2 d-md-block bg-light sidebar collapse">
+<div  class="container-fluid ">
+<div class="row ">
+<div id="left-section" class = "col-md-2 d-md-block bg-light sidebar collapse ">
     <app-cash-account></app-cash-account>
     <app-invest-account></app-invest-account>
   </div>
-  <div  id="middle-section" class="col-md-8 ms-sm-auto  ">
+  <div  id="middle-section" class="col-md-8   ">
+
     <app-net-worth></app-net-worth>
     <app-cash-flow></app-cash-flow>
   </div>
-  <div id="right-section"  class="col-md-2 ms-sm-auto ">
+  <div id="right-section"  class="col-md-2  ">
     <app-market-movers></app-market-movers>
     <app-insights></app-insights>
   </div>

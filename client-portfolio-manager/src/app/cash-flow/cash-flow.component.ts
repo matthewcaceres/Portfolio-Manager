@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartOptions, ChartType } from 'chart.js';
+import { ChartOptions, ChartType, plugins } from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
 import { CashFlowService } from 'src/services/cash-flow.service';
 
@@ -29,6 +29,7 @@ class Transaction {
   styleUrls: ['./cash-flow.component.css'],
 })
 export class CashFlowComponent implements OnInit {
+
   cashAccounts: Account[] = [];
   time: string = 'week';
   chartSpent: SingleDataSet = [];
@@ -37,13 +38,78 @@ export class CashFlowComponent implements OnInit {
   chartEarned: SingleDataSet = [];
   chartEarnedLabels: Label[] = [];
   chartEarnedMap = new Map();
+  income:number=0;
+  spent:number=0;
   chartType: ChartType = 'doughnut';
-
-  chartOptions: ChartOptions = {
+  chartOptionsEarn: ChartOptions = {
     responsive: true,
     legend: {
       display: false,
+    },
+   
+   animation:{
+     onProgress:(chart)=> {
+      let width = chart.chart.width,
+        height = chart.chart.height,
+        ctx = chart.chart.ctx;
+
+      ctx.restore();
+      let fontSize = 1.5
+      ctx.font = fontSize + "em sans-serif";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = '#dddddd';
+      let sum =0;
+      this.chartSpent.forEach((element:any)=>{
+        sum+=element;
+      })
+      this.income=sum;
+      let text = "$" + sum,
+        textX = Math.round((width - ctx.measureText(text).width) / 2),
+        textY = height / 2 + 15;
+
+      ctx.fillText(text, textX, textY);
+      text = "Income",
+      textX = Math.round((width - ctx.measureText(text).width) / 2),
+      textY = height / 2 - 15;
+      ctx.fillText(text, textX, textY);
+      ctx.save();
     }
+   }
+  };
+
+  chartOptionsSpent: ChartOptions = {
+    responsive: true,
+    legend: {
+      display: false,
+    },
+   animation:{
+     onProgress:(chart)=> {
+      let width = chart.chart.width,
+        height = chart.chart.height,
+        ctx = chart.chart.ctx;
+
+      ctx.restore();
+      let fontSize = 1.5
+      ctx.font = fontSize + "em sans-serif";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = '#dddddd';
+      let sum =0;
+      this.chartEarned.forEach((element:any)=>{
+        sum+=element;
+      })
+      this.spent=sum;
+      let text = "$" + sum,
+        textX = Math.round((width - ctx.measureText(text).width) / 2),
+        textY = height / 2 + 15;
+
+      ctx.fillText(text, textX, textY);
+       text = "Spending",
+      textX = Math.round((width - ctx.measureText(text).width) / 2),
+      textY = height / 2 - 15;
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    }
+   }
   };
   constructor(private cashFlowService: CashFlowService) {}
 
@@ -51,6 +117,7 @@ export class CashFlowComponent implements OnInit {
     this.getCashAccounts();
   }
 
+ 
   getCashAccounts() {
     this.cashFlowService.getTransactions(1).subscribe(
       (data: any) => {
