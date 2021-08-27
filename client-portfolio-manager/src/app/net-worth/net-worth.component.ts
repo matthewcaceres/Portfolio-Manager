@@ -12,7 +12,7 @@ export class NetWorthComponent implements OnInit {
   timeFrame = 0;
   difference: string = '';
   time: string = 'week';
-  chartData: [] = [];
+  chartData: number[] = [];
   chartType: ChartType = 'line';
   lineChartLabels: Label[] = [];
   lineChartColors: Color[] = [
@@ -109,13 +109,13 @@ export class NetWorthComponent implements OnInit {
           100;
         if (num > 0) {
           this.difference =
-            '+' + num.toFixed(2) + ' (' + percent.toFixed(2) + '%)';
+            '+' + num.toLocaleString('en-US', {maximumFractionDigits:2}) + ' (' + percent.toLocaleString('en-US', {maximumFractionDigits:2}) + '%)';
         } else
           this.difference =
             
-            num.toFixed(2) +
+            num.toLocaleString('en-US', {maximumFractionDigits:2}) +
             ' (' +
-            percent.toFixed(2) +
+            percent.toLocaleString('en-US', {maximumFractionDigits:2}) +
             '%)';
       }
     );

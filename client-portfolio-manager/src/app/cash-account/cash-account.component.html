@@ -1,4 +1,4 @@
-<div class="card" style="width: 14rem;">
+<div class="card" style="width: 100%;">
     <div class="card-header">
       Cash Accounts
     </div>
@@ -6,16 +6,16 @@
         <thead>
           <tr>
             <th scope="col">Account Name</th>
-            <th scope="col">Total</th>
+            <th scope="col" class="rightColumn">Total</th>
           </tr>
         </thead>
         <tbody>
             <tr *ngFor="let account of accounts">
-                <td>
+                <td >
                   {{account.name}}
                 </td>
-                <td>
-                 ${{account.total}}    
+                <td class="rightColumn">
+                 ${{account.total.toFixed(2)}}    
                 </td>
               </tr>
          

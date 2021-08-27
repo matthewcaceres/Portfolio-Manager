@@ -1,46 +1,27 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href= "assets/images/citi-logo.png">
-
-    <title>Portfolio Manager</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
-    
-
-    <!-- Custom styles for this template -->
-    <link href="app.component.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Jack</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <img src="assets/images/citi-logo.png" class="rounded float-left" alt="citi-logo" width="40" height="50">
-
-    </nav>
-    <div  class="contaier-fluid">
-      <div class="row">
-      <div id="left-section" class = "col-md-2 d-md-block bg-light sidebar collapse">
-          <app-cash-account></app-cash-account>
-          <app-invest-account></app-invest-account>
-        </div>
-        <div  id="middle-section" class="col-md-8 ms-sm-auto  ">
-          <app-net-worth></app-net-worth>
-          <app-cash-flow></app-cash-flow>
-        </div>
-        <div id="right-section"  class="col-md-2 ms-sm-auto ">
-          <app-market-movers></app-market-movers>
-          <app-insights></app-insights>
-        </div>
-        </div>
-        
-      </div>
-
+<nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
+  <a class="navbar-brand" href="#">{{ user.name }}'s Portfolio</a>
+  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+width="24" height="24"
+viewBox="0 0 172 172"
+style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M14.33333,35.83333v14.33333h143.33333v-14.33333zM14.33333,78.83333v14.33333h143.33333v-14.33333zM14.33333,121.83333v14.33333h143.33333v-14.33333z"></path></g></g></svg>
+</nav>
+<div id="container" class="contaier-fluid ">
+  <div class="row h-100">
+    <div
+      id="left-section"
+      class="col-md-2 bg-light pr-0"
+    >
+      <app-cash-account></app-cash-account>
+      <app-invest-account></app-invest-account>
+    </div>
+    <div id="middle-section" class="col-md-8 ">
+      <app-net-worth></app-net-worth>
+      <app-cash-flow></app-cash-flow>
+    </div>
+    <div id="right-section" class="col-md-2  pr-5 bg-light">
+      <app-market-movers></app-market-movers>
+      <br>
+      <app-insights></app-insights>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="card" style="width: 14rem;">
+<div class="card" style="width: 100%;">
     <div class="card-header">
       Investment Accounts
     </div>
@@ -6,7 +6,7 @@
         <thead>
           <tr>
             <th scope="col">Account Name</th>
-            <th scope="col">Total</th>
+            <th scope="col" class="rightColumn">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -14,9 +14,8 @@
                 <td>
                   {{account.name}}
                 </td>
-                <td *ngIf="getAccountTotal(1) as total1" >
-                    ${{total1}}
-
+                <td class="rightColumn">
+                  ${{account.total.toLocaleString('en-US', {maximumFractionDigits:2})}}
                 </td>
               </tr>
          

@@ -1,128 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 import { InvestAccountService } from 'src/services/invest-account.service';
-import {InvestAccount} from 'src/app/invest-account';
+import { InvestAccount } from 'src/app/invest-account';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 
+class Account {
+  id: number;
+  total: number;
+  constructor() {
+    this.id = 0;
+    this.total = 0;
+  }
+}
 @Component({
   selector: 'app-invest-account',
   templateUrl: './invest-account.component.html',
-  styleUrls: ['./invest-account.component.css']
+  styleUrls: ['./invest-account.component.css'],
 })
 export class InvestAccountComponent implements OnInit {
-  
-  accounts: any = {};
+  accounts: any = [];
 
   total: number | undefined;
 
-  constructor(private router: Router, private service: InvestAccountService) { }
+  constructor(private router: Router, private service: InvestAccountService) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe(value => {
-      this.getAccounts(1);
-      
-    });
+    this.getAccounts(1);
   }
-  
+
   getAccounts(id: number) {
-    this.service.getInvestmentAccounts(id).subscribe(data => {
-      this.accounts = data;
-
-    });
-
     this.service.getInvestmentAccounts(id).subscribe(
-      (data: any) => {
+      (data) => {
         this.accounts = data;
       },
       () => {},
-      () => {this.accounts.forEach(element : any => {
-        this.service.AccountTotal(id).subscribe(data => {
-          element.total = data;
-        
-      });})
-  }
-
-
-
-  /*
-  public getAccounts(id:number): void {
-    this.service.getInvestmentAccounts(id).subscribe(
-      (response: InvestAccount[]) => {
-        this.accounts = response;
+      () => {
         console.log(this.accounts);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
+        for (let i = 0; i < this.accounts.length; i++) {
+          this.service.AccountTotal(this.accounts[i].id).subscribe((data: any) => {
+            this.accounts[i].total = data;
+          });
+        }
       }
     );
   }
-*/
-  /*public addInvestAccount(addForm: NgForm): void {
-    document.getElementByName('add-account-form').click();
-    this.service.addAccount(addForm.value).subscribe(
-      (response: InvestAccount) => {
-        console.log(response);
-        this.getAccounts();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
-  }
-*/
-/*
-  public updateAccount(account: InvestAccount): void {
-    this.service.updateAccount(account).subscribe(
-      (response: InvestAccount) => {
-        console.log(response);
-        this.updateAccount();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-
-  public deleteAccount(account: InvestAccount): void {
-    this.service.deleteAccount(account).subscribe(
-      (response: void) => {
-        console.log(response);
-        this.getAccounts();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-*/
-/*
-  public onOpenModal(account: InvestAccount, mode: string): void {
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#add');
-    }
-    if (mode === 'edit') {
-      this.addAccount = account;
-      button.setAttribute('data-target', '#updateEmployeeModal');
-    }
-    if (mode === 'delete') {
-      this.deleteAccount = account;
-      button.setAttribute('data-target', '#deleteEmployeeModal');
-    }
-    container.appendChild(button);
-    button.click();
-  }
-*/
-
- 
-
-
-
 }

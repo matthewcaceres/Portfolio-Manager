@@ -16,3 +16,8 @@ hr{
  #net{
      color:#0d5fbc
  }
+
+ .container{
+   height:50%;
+   max-height:50%;
+}

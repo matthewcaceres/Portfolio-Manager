@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 
 
-const baseurl = 'http://localhost:8080';
+const baseurl = 'http://portfoliomanager-portfoliomanager.namdevops12.conygre.com';
 @Injectable({
   providedIn: 'root'
 })
