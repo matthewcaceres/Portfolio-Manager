@@ -14,11 +14,3 @@ EXPOSE 8080
 ENV JAVA_OPTS=""
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/urandom -jar /app.jar" ]
 
-FROM node:latest as build
-WORKDIR /usr/local/app
-COPY ./client-portfolio-manager /usr/local/app/
-RUN npm install
-RUN npm run build
-FROM nginx:latest
-COPY --from=build /usr/local/app/dist/client-portfolio-manager /usr/share/nginx/html
-EXPOSE 80
