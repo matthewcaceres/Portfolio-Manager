@@ -21,7 +21,8 @@ class Account {
 export class InvestAccountComponent implements OnInit {
   accounts: any = [];
 
-  total: number | undefined;
+  
+  sum:number=0;
 
   constructor(private router: Router, private service: InvestAccountService) {}
 
@@ -40,6 +41,7 @@ export class InvestAccountComponent implements OnInit {
         for (let i = 0; i < this.accounts.length; i++) {
           this.service.AccountTotal(this.accounts[i].id).subscribe((data: any) => {
             this.accounts[i].total = data;
+            this.sum+=data;
           });
         }
       }

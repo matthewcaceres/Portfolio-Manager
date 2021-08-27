@@ -1,3 +1,11 @@
 .rightColumn{
   text-align: right;
 }
+
+.card-header{
+  padding: .75rem;
+  background-image: linear-gradient(white, #DDDDDF);
+}
+.card-header:hover{
+  cursor: pointer;
+}

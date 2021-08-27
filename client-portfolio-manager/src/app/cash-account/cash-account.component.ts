@@ -8,7 +8,8 @@ import { CashAccountService } from 'src/services/cash-account.service';
 })
 export class CashAccountComponent implements OnInit {
 
-  accounts: any = {};
+  accounts: any = [];
+  sum:number=0;
 
   constructor(private cashAcctService: CashAccountService) { }
 
@@ -22,6 +23,10 @@ export class CashAccountComponent implements OnInit {
     this.cashAcctService.getCashAccounts(id).subscribe((data) => {
       console.log("Cash Accounts: ", data)
       this.accounts = data;
+    },()=>{},()=>{
+      for(let i = 0 ; i<this.accounts.length;i++){
+        this.sum+=this.accounts[i].total;
+      }
     })
   }
 

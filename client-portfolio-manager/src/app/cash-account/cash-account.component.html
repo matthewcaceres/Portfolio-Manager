@@ -1,26 +1,29 @@
-<div class="card" style="width: 100%;">
-    <div class="card-header">
-      Cash Accounts
+<div id="accordion">
+  <div class="card" style="width: 100%">
+    <div
+      class="card-header justify-content-between d-flex"
+      data-toggle="collapse"
+      data-target="#collapseOne"
+    >
+      <b>Cash</b>
+      <b>${{ sum.toLocaleString() }}.00</b>
     </div>
-    <table class="card-table table">
-        <thead>
-          <tr>
-            <th scope="col">Account Name</th>
-            <th scope="col" class="rightColumn">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let account of accounts">
-                <td >
-                  {{account.name}}
-                </td>
-                <td class="rightColumn">
-                 ${{account.total.toFixed(2)}}    
-                </td>
-              </tr>
-         
-        </tbody>
-      </table>
-     
-      
   </div>
+  <div
+    id="collapseOne"
+    class="collapse show"
+    aria-labelledby="headingOne"
+    data-parent="#accordion"
+  >
+    <table class="card-table table">
+      <tbody>
+        <tr *ngFor="let account of accounts">
+          <td>
+            {{ account.name }}
+          </td>
+          <td class="rightColumn">${{ account.total.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
