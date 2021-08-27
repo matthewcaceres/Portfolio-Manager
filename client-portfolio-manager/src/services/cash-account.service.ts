@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-
+import {environment} from '../environments/environment';
 
 const baseurl = 'http://portfoliomanager-portfoliomanager.namdevops12.conygre.com';
 @Injectable({
@@ -9,12 +9,12 @@ const baseurl = 'http://portfoliomanager-portfoliomanager.namdevops12.conygre.co
 })
 export class CashAccountService {
 
+  cashAccount: any= environment.services.getCashAccountRemote;
+
   constructor(private http: HttpClient) { }
 
- 
-
   getCashAccounts(id:number): Observable<any> {
-    return this.http.get(`${baseurl}/account/${id}/cash`);
+    return this.http.get(this.cashAccount(id));
   }
 
   addAccount(account: Object): Observable<Object> {

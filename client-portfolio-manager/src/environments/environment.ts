@@ -3,7 +3,27 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  local: 'http://localhost:8080',
+  remote: 'http://portfoliomanager-portfoliomanager.namdevops12.conygre.com',
+  services: {
+    getMarketMoversRemote: (id:number) => `${environment.remote}/account/${id}/movers/`,
+    getMarketMoversLocal: (id: number) => `${environment.local}/account/${id}//movers`,
+    getIndicesRemote: (time: string) => `${environment.remote}/account/indices?time=${time}`,
+    getIndicesLocal: (time: string) => `${environment.local}/account/indices?time=${time}`,
+    getCashAccountRemote: (id: number) => `${environment.remote}/account/${id}/cash`,
+    getCashAccountLocal: (id: number) => `${environment.local}/account/${id}/cash`,
+    getInvestAccountRemote: (id: number) => `${environment.remote}/account/${id}/invest`,
+    getInvestAccountLocal: (id: number) => `${environment.local}/account/${id}/invest`,
+    getAccountTotalRemote: (id: number) => `${environment.remote}/invest/total/${id}`,
+    getAccountTotalLocal: (id: number) => `${environment.local}/invest/total/${id}`,
+    getCashFlowRemote: (id:number, time:string) => `${environment.remote}/account/${id}/cash?time=${time}`,
+    getCashFlowLocal: (id:number, time:string) => `${environment.local}/account/${id}/cash?time=${time}`,
+    getNetWorthRemote: (id:number, time:string) => `${environment.remote}/account/${id}/networth?time=${time}`,
+    getNetWorthLocal: (id:number, time:string) => `${environment.local}/account/${id}/networth?time=${time}`,
+    getUserRemote: (id: number) => `${environment.remote}/account/${id}`,
+    getUserLocal: (id: number) => `${environment.local}/account/${id}`
+  }
 };
 
 /*

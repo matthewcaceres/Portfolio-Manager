@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 const baseurl = 'http://portfoliomanager-portfoliomanager.namdevops12.conygre.com';
 
@@ -9,12 +10,15 @@ const baseurl = 'http://portfoliomanager-portfoliomanager.namdevops12.conygre.co
 })
 export class InvestAccountService {
 
+  investAccount: any= environment.services.getInvestAccountRemote;
+  accountTotal: any= environment.services.getAccountTotalRemote;
+
   constructor(private http: HttpClient) { }
 
   getInvestmentAccounts(id:number): Observable<any> {
-    return this.http.get(`${baseurl}/account/${id}/invest`);
+    return this.http.get(this.investAccount(id));
   }
-
+  
   addAccount(account: Object): Observable<Object> {
     return this.http.post(`${baseurl}/invest/add`, account);
   }
@@ -22,13 +26,13 @@ export class InvestAccountService {
   deleteAccount(account: Object): Observable<any> {
     return this.http.delete(`${baseurl}/invest/delete`, {responseType: 'text'});
   }
-
+  
   updateAccount(account: Object): Observable<Object>{
     return this.http.put(`${baseurl}/invest/update`, account);
   }
-
+  
   AccountTotal(id:number): Observable<any>{
-    return this.http.get(`${baseurl}/invest/total/${id}`);
+    return this.http.get(this.accountTotal(id));
   }
 
 
