@@ -14,7 +14,7 @@ EXPOSE 8080
 ENV JAVA_OPTS=""
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/urandom -jar /app.jar" ]
 
-FROM node:lastest as build
+FROM node:latest as build
 WORKDIR /usr/local/app
 COPY ./client-portfolio-manager /usr/local/app/
 RUN npm install
