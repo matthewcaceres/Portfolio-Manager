@@ -2,7 +2,7 @@ def projectName = 'portfoliomanager'
 def projectName2 = 'portfoliomanager-prod'
 def version = "0.0.${currentBuild.number}"
 def dockerImageTag = "${projectName}:${version}"
-def dockerImageTag2 = "${projectName}:${version}-prod"
+def dockerImageTag2 = "${projectName2}:${version}-prod"
 
 pipeline {
   agent any
