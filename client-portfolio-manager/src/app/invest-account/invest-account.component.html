@@ -6,7 +6,9 @@
       data-target="#collapseTwo"
     >
       <b>Investments</b>
-      <b>${{ sum.toLocaleString() }}</b>
+      <b>${{ sum.toLocaleString("en-US", {
+                  maximumFractionDigits: 2
+                }) }}</b>
     </div>
     <div
       id="collapseTwo"
